@@ -44,8 +44,10 @@ def call(Map config = [:]) {
                     ])
                 ])
             }
+        }
+        stage('Deliver for test') {
             when {
-                branch 'test'
+                branch 'release_4'
             }
             steps {
                 echo("I am in build")
