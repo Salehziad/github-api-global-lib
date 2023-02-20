@@ -3,10 +3,11 @@
 //     sh 'echo hello world'
 // }
 
-// def call(String name,String day) {
-//     sh 'echo Hello $name. Today is $day'
-// }
+def call(String name,String day) {
+    sh "echo Hello $name. Today is $day"
+}
 
 def call(String name) {
-    println("Hello, $name!")
+    sh "Hello, $name!"
+
 }
