@@ -1,5 +1,5 @@
 // def call(Map config = [:]) {
-//     sh "echo Hello ${config.name}. Today is ${config.day}."
+//     sh "echo Hello ${config.name}. Today is config.day}."
 // }
 
 // def call(String name,String day) {
@@ -13,7 +13,7 @@
 
 
 
-def call() {
+def call(Map config = [:]) {
     pipeline {
     agent any
       options {
@@ -31,12 +31,12 @@ def call() {
                         verbose: true,
                         transfers: [
                         sshTransfer(
-                            execCommand: " rm -rf /var/www/api.ciam.agentsoncloud.com_Release_4"
+                            execCommand: " rm -rf /var/www/${config.name}"
                         ),
                         sshTransfer(
                             sourceFiles: "**/*",
-                            remoteDirectory: "api.ciam.agentsoncloud.com_Release_4",
-                            execCommand:"cd /var/www/api.ciam.agentsoncloud.com_Release_4 && sudo npm i"
+                            remoteDirectory: "${config.name}",
+                            execCommand:"cd /var/www/${config.name} && sudo npm i"
                            
                         ),
                     ])
@@ -59,7 +59,7 @@ def call() {
                         verbose: true,
                         transfers: [
                          sshTransfer(
-                                 execCommand: "cd /var/www/api.ciam.agentsoncloud.com_Release_4 && pm2 start"
+                                 execCommand: "cd /var/www/${config.name} && pm2 start"
                          )
                      
                     ])
