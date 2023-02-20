@@ -24,9 +24,6 @@ def call(Map config = [:]) {
             when {
                 branch 'release_4'
             }
-            // steps {
-            //     echo("I am in Test")
-            // }
             steps {
                 echo("I am in build")
                 sshPublisher(
