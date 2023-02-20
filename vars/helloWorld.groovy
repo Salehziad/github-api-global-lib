@@ -25,42 +25,45 @@ def call(Map config = [:]) {
                 branch 'release_4'
             }
             steps {
-                echo("I am in build")
-                sshPublisher(
-                    continueOnError: false, failOnError: true,
-                    publishers: [
-                    sshPublisherDesc(
-                        configName: "dev server",
-                        verbose: true,
-                        transfers: [
-                        sshTransfer(
-                            execCommand: " rm -rf /var/www/${config.name}"
-                        ),
-                        sshTransfer(
-                            sourceFiles: "**/*",
-                            remoteDirectory: "${config.name}",
-                            execCommand:"cd /var/www/${config.name} && sudo npm i"
+                echo("I am in Test")
+            }
+            // steps {
+            //     echo("I am in build")
+            //     sshPublisher(
+            //         continueOnError: false, failOnError: true,
+            //         publishers: [
+            //         sshPublisherDesc(
+            //             configName: "dev server",
+            //             verbose: true,
+            //             transfers: [
+            //             sshTransfer(
+            //                 execCommand: " rm -rf /var/www/${config.name}"
+            //             ),
+            //             sshTransfer(
+            //                 sourceFiles: "**/*",
+            //                 remoteDirectory: "${config.name}",
+            //                 execCommand:"cd /var/www/${config.name} && sudo npm i"
                            
-                        ),
-                    ])
-                ])
-            }
-            steps {
-                echo("I am in Deploy")
-                sshPublisher(
-                    continueOnError: false, failOnError: true,
-                    publishers: [
-                    sshPublisherDesc(
-                        configName: "dev server",
-                        verbose: true,
-                        transfers: [
-                         sshTransfer(
-                                 execCommand: "cd /var/www/${config.name} && pm2 start"
-                         )
+            //             ),
+            //         ])
+            //     ])
+            // }
+            // steps {
+            //     echo("I am in Deploy")
+            //     sshPublisher(
+            //         continueOnError: false, failOnError: true,
+            //         publishers: [
+            //         sshPublisherDesc(
+            //             configName: "dev server",
+            //             verbose: true,
+            //             transfers: [
+            //              sshTransfer(
+            //                      execCommand: "cd /var/www/${config.name} && pm2 start"
+            //              )
                      
-                    ])
-                ])
-            }
+            //         ])
+            //     ])
+            // }
         }
     }
      post {
