@@ -22,7 +22,7 @@ def call(Map config = [:]) {
     stages {
         stage('Deliver for development') {
             when {
-                branch 'release_4'
+                branch 'test'
             }
             steps {
                 echo("I am in Test")
