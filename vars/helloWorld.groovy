@@ -20,53 +20,7 @@ def call(Map config = [:]) {
         ansiColor('xterm')
     }
     stages {
-        // stage('Build') {
-        //     steps {
-        //         echo("I am in build")
-        //         sshPublisher(
-        //             continueOnError: false, failOnError: true,
-        //             publishers: [
-        //             sshPublisherDesc(
-        //                 configName: "dev server",
-        //                 verbose: true,
-        //                 transfers: [
-        //                 sshTransfer(
-        //                     execCommand: " rm -rf /var/www/${config.name}"
-        //                 ),
-        //                 sshTransfer(
-        //                     sourceFiles: "**/*",
-        //                     remoteDirectory: "${config.name}",
-        //                     execCommand:"cd /var/www/${config.name} && sudo npm i"
-                           
-        //                 ),
-        //             ])
-        //         ])
-        //     }
-        // }
-        // stage('Test') {
-        //     steps {
-        //         echo("I am in Test")
-        //     }
-        // }
-        // stage('Deploy') {
-        //     steps {
-        //         echo("I am in Deploy")
-        //         sshPublisher(
-        //             continueOnError: false, failOnError: true,
-        //             publishers: [
-        //             sshPublisherDesc(
-        //                 configName: "dev server",
-        //                 verbose: true,
-        //                 transfers: [
-        //                  sshTransfer(
-        //                          execCommand: "cd /var/www/${config.name} && pm2 start"
-        //                  )
-                     
-        //             ])
-        //         ])
-        //     }
-        // }
-            stage('Deliver for development') {
+        stage('Deliver for development') {
             when {
                 branch 'release_4'
             }
