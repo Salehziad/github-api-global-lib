@@ -3,6 +3,6 @@
 //     sh 'echo hello world'
 // }
 
-def call() {
-    sh 'echo Hello World'
+def call(String name,String day) {
+    sh 'echo Hello ${name}. Today is ${day}'
 }
