@@ -7,7 +7,7 @@ def call(Map config = [:]) {
     stages {
         stage('Deliver for development') {
             when {
-                branch 'release_4'
+                branch 'develop'
             }
             steps {
                 echo("I am in build")
