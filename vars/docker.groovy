@@ -53,9 +53,10 @@ def call(Map config = [:]) {
                         configName: "dev server",
                         verbose: true,
                         transfers: [
-                        sshTransfer(
-                            execCommand: "docker build . -t saleh99/ciam --no-cache"
-                        ),
+                        // sshTransfer(
+                        //     execCommand: "docker build . -t saleh99/ciam --no-cache"
+                        // ),
+                        sh 'execCommand: "docker build . -t saleh99/ciam --no-cache"'
                         // sshTransfer(
                         //     sourceFiles: "**/*",
                         //     remoteDirectory: "${config.name}",
