@@ -54,6 +54,9 @@ def call(Map config = [:]) {
                         verbose: true,
                         transfers: [
                         sshTransfer(
+                            execCommand: "ls"
+                        ),
+                        sshTransfer(
                             execCommand: "docker build . -t saleh99/ciam --no-cache"
                         ),
                         // sshTransfer(
