@@ -58,9 +58,9 @@ def call(Map config = [:]) {
                             remoteDirectory: "ciam",
                             execCommand:"cd /var/www/ciam &&docker build . -t saleh99/ciam --no-cache"
                         ),
-                        // sshTransfer(
-                        //     execCommand: "docker build . -t saleh99/ciam --no-cache"
-                        // ),
+                        sshTransfer(
+                            execCommand: "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin && docker push lloydmatereke/jenkins-docker-hub"
+                        ),
                         // sshTransfer(
                         //     sourceFiles: "**/*",
                         //     remoteDirectory: "${config.name}",
