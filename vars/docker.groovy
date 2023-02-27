@@ -53,14 +53,13 @@ def call(Map config = [:]) {
                         configName: "dev server",
                         verbose: true,
                         transfers: [
+
                         sshTransfer(
-                execCommand: "git rev-list --tags --max-count=1"
+                            sourceFiles: "**/*",
+                            remoteDirectory: "ciam",
+                            execCommand: "git rev-list --tags --max-count=1"
+                            execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache"
                         ),
-                        // sshTransfer(
-                        //     sourceFiles: "**/*",
-                        //     remoteDirectory: "ciam",
-                        //     execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache && rm -rf ciam"
-                        // ),
                         // sshTransfer(
                         //     execCommand: "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin && docker push saleh99/ciam"
                         // ),
