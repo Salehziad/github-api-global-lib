@@ -40,14 +40,45 @@ def call(Map config = [:]) {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
     stages {
-        echo("I am in build")
         stage('Deliver for development') {
             when {
                 branch 'release_4'
             }
-                 steps {
-        sh 'docker build . -t saleh99/ciam --no-cache'
-      }
+            steps {
+                echo("I am in build")
+                sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                    sshPublisherDesc(
+                        configName: "dev server",
+                        verbose: true,
+                        transfers: [
+                        sshTransfer(
+                            execCommand: "docker build . -t saleh99/ciam --no-cache"
+                        ),
+                        // sshTransfer(
+                        //     sourceFiles: "**/*",
+                        //     remoteDirectory: "${config.name}",
+                        //     execCommand:"cd /var/www/${config.name} && sudo npm i"
+                           
+                        // ),
+                    ])
+                ])
+                // echo("I am in Deploy")
+                // sshPublisher(
+                //     continueOnError: false, failOnError: true,
+                //     publishers: [
+                //     sshPublisherDesc(
+                //         configName: "dev server",
+                //         verbose: true,
+                //         transfers: [
+                //          sshTransfer(
+                //                  execCommand: "cd /var/www/${config.name} && pm2 start"
+                //          )
+                     
+                //     ])
+                // ])
+            }
         }
     }
 }
