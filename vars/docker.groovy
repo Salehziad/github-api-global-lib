@@ -40,6 +40,7 @@ def call(Map config = [:]) {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub')
     }
     stages {
+        echo("I am in build")
         stage('Deliver for development') {
             when {
                 branch 'release_4'
@@ -47,23 +48,6 @@ def call(Map config = [:]) {
                  steps {
         sh 'docker build . -t saleh99/ciam --no-cache'
       }
-        }
-    }
-     post {
-        always {
-           slackSend channel: "#development-jenkins", message: "${env.JOB_NAME}  - #${env.BUILD_NUMBER} : Started . ", color: "good"
-        }
-        success {
-          slackSend channel: "#development-jenkins", message: "${env.JOB_NAME}  - #${env.BUILD_NUMBER} : Build Finshed Success . ", color: "good"
-        }
-        unstable {
-           slackSend channel: "#development-jenkins", message: "${env.JOB_NAME}  - #${env.BUILD_NUMBER} : Build have Error  . ", color: "warning"
-        }
-        failure {
-            slackSend channel: "#development-jenkins", message: "${env.JOB_NAME}  - #${env.BUILD_NUMBER} : Failure Build  . ", color: "danger"
-        }
-        changed {
-             echo 'Things were different before...'
         }
     }
 }
