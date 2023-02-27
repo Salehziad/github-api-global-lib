@@ -54,7 +54,7 @@ def call(Map config = [:]) {
                         verbose: true,
                         transfers: [
                         sshTransfer(
-                            sourceFiles: "Dockerfile/*",
+                            sourceFiles: "**/Dockerfile",
                             remoteDirectory: "ciam",
                             execCommand:"cd /ciam"
                         ),
