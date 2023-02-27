@@ -54,6 +54,9 @@ def call(Map config = [:]) {
                         verbose: true,
                         transfers: [
                         sshTransfer(
+                            execCommand: "cd /var/www/multibranch_ciam_release_4"
+                        ),
+                        sshTransfer(
                             execCommand: "pwd"
                         ),
                         sshTransfer(
