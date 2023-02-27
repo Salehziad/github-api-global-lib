@@ -59,7 +59,7 @@ def call(Map config = [:]) {
                             execCommand:"cd /var/www/ciam &&docker build . -t saleh99/ciam --no-cache"
                         ),
                         sshTransfer(
-                            execCommand: "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin && docker push lloydmatereke/jenkins-docker-hub"
+                            execCommand: "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin && docker push saleh99/ciam"
                         ),
                         // sshTransfer(
                         //     sourceFiles: "**/*",
