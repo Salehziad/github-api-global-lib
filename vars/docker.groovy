@@ -50,32 +50,34 @@ def call(Map config = [:]) {
                 //     myVar =execCommand:"git rev-list --tags --max-count=1"
                 //     echo "MYVAR: ${myVar}"
                 // myVar = sh ( 'git rev-list --tags --max-count=1')
-                execCommand: "git rev-list --tags --max-count=1"
                 // echo "Git committer email: ${myVar}"
                 }
-                // sshPublisher(
-                //     continueOnError: false, failOnError: true,
-                //     publishers: [
-                //     sshPublisherDesc(
-                //         configName: "dev server",
-                //         verbose: true,
-                //         transfers: [
-                //         sshTransfer(
-                //             sourceFiles: "**/*",
-                //             remoteDirectory: "ciam",
-                //             execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache && rm -rf ciam"
-                //         ),
-                //         sshTransfer(
-                //             execCommand: "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin && docker push saleh99/ciam"
-                //         ),
-                //         // sshTransfer(
-                //         //     sourceFiles: "**/*",
-                //         //     remoteDirectory: "${config.name}",
-                //         //     execCommand:"cd /var/www/${config.name} && sudo npm i"
+                sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers: [
+                    sshPublisherDesc(
+                        configName: "dev server",
+                        verbose: true,
+                        transfers: [
+                        sshTransfer(
+                             execCommand: "git rev-list --tags --max-count=1"
+                        ),
+                        // sshTransfer(
+                        //     sourceFiles: "**/*",
+                        //     remoteDirectory: "ciam",
+                        //     execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache && rm -rf ciam"
+                        // ),
+                        // sshTransfer(
+                        //     execCommand: "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin && docker push saleh99/ciam"
+                        // ),
+                        // sshTransfer(
+                        //     sourceFiles: "**/*",
+                        //     remoteDirectory: "${config.name}",
+                        //     execCommand:"cd /var/www/${config.name} && sudo npm i"
                            
-                //         // ),
-                //     ])
-                // ])
+                        // ),
+                    ])
+                ])
             }
         }
     }
