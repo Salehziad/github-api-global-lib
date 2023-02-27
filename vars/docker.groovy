@@ -46,15 +46,15 @@ def call(Map config = [:]) {
             }
             steps {
                 echo("I am in build")
-                // script {
+                script {
                 //     myVar =execCommand:"git rev-list --tags --max-count=1"
                 //     echo "MYVAR: ${myVar}"
-                // }
-                GIT_COMMIT_EMAIL = sh (
+                myVar = sh (
                 script: 'git rev-list --tags --max-count=1',
                 returnStdout: true
                 ).trim()
-                echo "Git committer email: ${GIT_COMMIT_EMAIL}"
+                echo "Git committer email: ${myVar}"
+                }
                 // sshPublisher(
                 //     continueOnError: false, failOnError: true,
                 //     publishers: [
