@@ -80,4 +80,3 @@ def call(Map config = [:]) {
         }
     }
 }
-}
