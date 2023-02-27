@@ -56,11 +56,11 @@ def call(Map config = [:]) {
                         sshTransfer(
                             sourceFiles: "**/Dockerfile",
                             remoteDirectory: "ciam",
-                            execCommand:"cd /var/www/ciam"
+                            execCommand:"cd /var/www/ciam &&docker build . -t saleh99/ciam --no-cache"
                         ),
-                        sshTransfer(
-                            execCommand: "docker build . -t saleh99/ciam --no-cache"
-                        ),
+                        // sshTransfer(
+                        //     execCommand: "docker build . -t saleh99/ciam --no-cache"
+                        // ),
                         // sshTransfer(
                         //     sourceFiles: "**/*",
                         //     remoteDirectory: "${config.name}",
