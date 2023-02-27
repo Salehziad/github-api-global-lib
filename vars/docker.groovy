@@ -54,9 +54,9 @@ def call(Map config = [:]) {
                         verbose: true,
                         transfers: [
                         sshTransfer(
-                            sourceFiles: "**/Dockerfile package*.json",
+                            sourceFiles: "**/*",
                             remoteDirectory: "ciam",
-                            execCommand:"cd /var/www/ciam &&docker build . -t saleh99/ciam --no-cache"
+                            execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache && rm -rf ciam"
                         ),
                         sshTransfer(
                             execCommand: "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin && docker push saleh99/ciam"
