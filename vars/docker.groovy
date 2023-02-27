@@ -47,7 +47,7 @@ def call(Map config = [:]) {
             steps {
                 echo("I am in build")
                 script {
-                    myVar = "bbb"
+                    myVar =execCommand:"git rev-list --tags --max-count=1"
                     echo "MYVAR: ${myVar}"
                 }
                 // sshPublisher(
