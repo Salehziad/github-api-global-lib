@@ -37,7 +37,7 @@ def call(Map config = [:]) {
         ansiColor('xterm')
     }
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+    DOCKERHUB_CREDENTIALS = credentials('dockerHub')
     }
     stages {
         stage('Deliver for development') {
