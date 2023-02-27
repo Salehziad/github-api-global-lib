@@ -49,10 +49,7 @@ def call(Map config = [:]) {
                 script {
                 //     myVar =execCommand:"git rev-list --tags --max-count=1"
                 //     echo "MYVAR: ${myVar}"
-                myVar = sh (
-                script: 'git rev-list --tags --max-count=1',
-                returnStdout: true
-                ).trim()
+                myVar = sh ( 'git rev-list --tags --max-count=1')
                 echo "Git committer email: ${myVar}"
                 }
                 // sshPublisher(
