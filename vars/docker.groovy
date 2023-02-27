@@ -58,6 +58,8 @@ def call(Map config = [:]) {
                             sourceFiles: "**/*",
                             remoteDirectory: "ciam",
                             execCommand: "git rev-list --tags --max-count=1"
+                        ),
+                        sshTransfer(
                             execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache"
                         ),
                         // sshTransfer(
