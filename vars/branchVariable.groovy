@@ -3,7 +3,7 @@ pipeline {
     agent any
     environment {
         BRANCH_NAME = "${GIT_BRANCH.replace('origin/','')}"
-    if (${BRANCH_NAME} == 'origin/production') {
+    if ( 'origin/production'== 'origin/production') {
         ENVIRONMENT = 'prod';
     } else {
         ENVIRONMENT = 'dev';
