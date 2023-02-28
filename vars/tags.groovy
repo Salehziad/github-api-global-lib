@@ -1,15 +1,8 @@
 def call() {
 pipeline {
-    agent any
-    stages {
-        stage('Get latest tag') {
-            steps {
-                script {
-                    def git_tag = sh(returnStdout: true, script: "git describe --abbrev=0 --tags").trim()
-                    echo "Latest tag on the main branch: ${git_tag}"
-                }
-            }
-        }
-    }
+    TAG = sh (
+      returnStdout: true,
+      script: 'git fetch --tags && git tag --points-at HEAD | awk NF'
+    ).trim()
 }
 }
