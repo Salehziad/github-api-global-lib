@@ -1,13 +1,14 @@
 def call(Map config = [: ]) {
   pipeline {
-  agent any
+    agent any
     environment {
-      REPO_URL = 'www.my.repo'
+      BRANCH_NAME = "${GIT_BRANCH}"
     }
     stages {
-      stage('build') {
+      stage('Build') {
         steps {
-          sh 'env | grep REPO_URL'
+          echo "The branch name is ${BRANCH_NAME}"
+          // Add build steps here
         }
       }
     }
