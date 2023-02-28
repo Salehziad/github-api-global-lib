@@ -53,10 +53,10 @@ def call(Map config = [:]) {
             steps {
                 echo("I am in build")
                                 script {
-                       TAG = sh (
+    TAG = sh (
       returnStdout: true,
       script: 'git fetch --tags && git tag --points-at HEAD | awk NF'
-    ).trim()"
+    ).trim()
                 }
                 sshPublisher(
                     continueOnError: false, failOnError: true,
