@@ -16,14 +16,14 @@ def call(Map config = [: ]) {
           }
         }
       }
-      stage("Deliver for ${env.ENVIRONMENT}") {
+      stage("Deliver for {env.ENVIRONMENT}") {
         steps {
           echo("I am in build")
           sshPublisher(
             continueOnError: false, failOnError: true,
             publishers: [
               sshPublisherDesc(
-                configName: "${ENVIRONMENT}",
+                configName: ENVIRONMENT,
                 verbose: true,
                 transfers: [
                   sshTransfer(
