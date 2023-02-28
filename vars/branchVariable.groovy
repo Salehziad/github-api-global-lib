@@ -11,7 +11,7 @@ def call(Map config = [: ]) {
             if (env.BRANCH_NAME == 'develop') {
               env.ENVIRONMENT = 'dev server'
             } else if (env.BRANCH_NAME == 'docker') {
-              env.ENVIRONMENT = 'test server'
+              env.ENVIRONMENT = 'dev server'
             }
           }
         }
