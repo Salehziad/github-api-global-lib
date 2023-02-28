@@ -55,6 +55,7 @@ def call(Map config = [: ]) {
     agent any
     environment {
       BRANCH_NAME = "${GIT_BRANCH.replace('origin/','')}"
+      DOCKERHUB_CREDENTIALS = credentials('dockerHub')
     }
     stages {
       stage('Set Environment Variables') {
@@ -71,27 +72,29 @@ def call(Map config = [: ]) {
       stage("Deliver for deploy")  {
         steps {
           echo("I am in build ${ENVIRONMENT}")
-          sshPublisher(
-            continueOnError: false, failOnError: true,
-            publishers: [
-              sshPublisherDesc(
-                configName: ENVIRONMENT,
-                verbose: true,
-                transfers: [
-                        sshTransfer(
-                            sourceFiles: "**/*",
-                            remoteDirectory: "ciam",
-                            execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache"
-                        ),
-                        //delete unused images when build images with same name
-                        // sshTransfer(
-                        //     execCommand: "docker rmi $(docker images -qa -f 'dangling=true')"
-                        // ),
-                        sshTransfer(
-                            execCommand: "docker push saleh99/ciam"
-                        ),
-                ])
-            ])
+          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          sh 'docker build . -t saleh99/ciam --no-cache'
+        //   sshPublisher(
+        //     continueOnError: false, failOnError: true,
+        //     publishers: [
+        //       sshPublisherDesc(
+        //         configName: ENVIRONMENT,
+        //         verbose: true,
+        //         transfers: [
+        //                 sshTransfer(
+        //                     sourceFiles: "**/*",
+        //                     remoteDirectory: "ciam",
+        //                     execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache"
+        //                 ),
+        //                 //delete unused images when build images with same name
+        //                 // sshTransfer(
+        //                 //     execCommand: "docker rmi $(docker images -qa -f 'dangling=true')"
+        //                 // ),
+        //                 sshTransfer(
+        //                     execCommand: "docker push saleh99/ciam"
+        //                 ),
+        //         ])
+        //     ])
       }
     }
   }
