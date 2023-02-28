@@ -39,6 +39,10 @@ def call(Map config = [:]) {
     environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerHub')
     }
+    script {
+                    def git_tag = sh(returnStdout: true, script: "git describe --abbrev=0 --tags").trim()
+                    echo "Latest tag on the current branch: ${git_tag}"
+                }
     stages {
         stage('Deliver for development') {
             when {
@@ -52,10 +56,7 @@ def call(Map config = [:]) {
             // }
             steps {
                 echo("I am in build")
-                                script {
-                    def git_tag = sh(returnStdout: true, script: "git describe --abbrev=0 --tags").trim()
-                    echo "Latest tag on the current branch: ${git_tag}"
-                }
+                                
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers: [
