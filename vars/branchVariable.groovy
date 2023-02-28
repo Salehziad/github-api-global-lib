@@ -10,8 +10,8 @@ def call(Map config = [: ]) {
           script {
             if (env.BRANCH_NAME == 'develop') {
               env.ENVIRONMENT = 'dev server'
-            } else if (env.BRANCH_NAME == 'docker') {
-              env.ENVIRONMENT = 'dev server'
+            } else if (env.BRANCH_NAME == 'test') {
+              env.ENVIRONMENT = 'test server'
             }
           }
         }
@@ -42,7 +42,7 @@ def call(Map config = [: ]) {
             continueOnError: false, failOnError: true,
             publishers: [
               sshPublisherDesc(
-                configName: "${ENVIRONMENT}",
+                configName: ENVIRONMENT,
                 verbose: true,
                 transfers: [
                   sshTransfer(
