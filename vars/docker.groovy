@@ -74,7 +74,7 @@ def call(Map config = [: ]) {
           echo("I am in build ${ENVIRONMENT}")
           sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
           sh 'docker build . -t saleh99/ciam --no-cache'
-          sh 'docker push saleh99/ciam:latest'
+          sh 'docker image push saleh99/ciam:latest'
         //   sshPublisher(
         //     continueOnError: false, failOnError: true,
         //     publishers: [
