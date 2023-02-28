@@ -44,14 +44,18 @@ def call(Map config = [:]) {
             when {
                 branch 'release_4'
             }
+            // steps {
+            //     script {
+            //         def git_tag = sh(returnStdout: true, script: "git describe --abbrev=0 --tags").trim()
+            //         echo "Latest tag on the current branch: ${git_tag}"
+            //     }
+            // }
             steps {
-                script {
+                echo("I am in build")
+                                script {
                     def git_tag = sh(returnStdout: true, script: "git describe --abbrev=0 --tags").trim()
                     echo "Latest tag on the current branch: ${git_tag}"
                 }
-            }
-            steps {
-                echo("I am in build")
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers: [
