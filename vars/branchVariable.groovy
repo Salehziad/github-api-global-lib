@@ -8,10 +8,10 @@ pipeline {
         stage('Set Environment Variables') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'origin/production') {
-                        env.ENVIRONMENT = 'prod'
-                    } else {
+                    if (env.BRANCH_NAME == 'docker') {
                         env.ENVIRONMENT = 'dev'
+                    } else {
+                        env.ENVIRONMENT = 'prod'
                     }
                 }
             }
