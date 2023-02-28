@@ -16,7 +16,7 @@ def call(Map config = [: ]) {
           }
         }
       }
-      stage("Deliver for {ENVIRONMENT}") {
+      stage("Deliver for ${env.ENVIRONMENT}") {
         steps {
           echo("I am in build")
           sshPublisher(
