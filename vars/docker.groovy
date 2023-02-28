@@ -53,15 +53,15 @@ def call(Map config = [:]) {
             steps {
                 echo("I am in build")
                 sshPublisher(
-                    continueOnError: true, failOnError: false,
+                    continueOnError: false, failOnError: true,
                     publishers: [
                     sshPublisherDesc(
                         configName: "dev server",
                         verbose: true,
                         transfers: [
-                        sshTransfer(
-                            execCommand:"docker image rm saleh99/ciam:latest"
-                        ),
+                        // sshTransfer(
+                        //     execCommand:"docker image rm saleh99/ciam:latest"
+                        // ),
                         sshTransfer(
                             sourceFiles: "**/*",
                             remoteDirectory: "ciam",
