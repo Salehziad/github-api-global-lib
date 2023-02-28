@@ -60,13 +60,13 @@ def call(Map config = [:]) {
                         verbose: true,
                         transfers: [
                         sshTransfer(
+                            execCommand:"docker image rm saleh99/ciam:latest"
+                        ),
+                        sshTransfer(
                             sourceFiles: "**/*",
                             remoteDirectory: "ciam",
                             execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache"
                         ),
-                        // sshTransfer(
-                        //     execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache"
-                        // ),
                         sshTransfer(
                             execCommand: "docker push saleh99/ciam"
                         ),
