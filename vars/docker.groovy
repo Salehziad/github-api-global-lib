@@ -68,28 +68,28 @@ def call(Map config = [: ]) {
           }
         }
       }
-      stage("Deliver for deploy")  {
-        steps {
-          echo("I am in build ${ENVIRONMENT}")
-        //   sshPublisher(
-        //     continueOnError: false, failOnError: true,
-        //     publishers: [
-        //       sshPublisherDesc(
-        //         configName: ENVIRONMENT,
-        //         verbose: true,
-        //         transfers: [
-        //           sshTransfer(
-        //             execCommand: " rm -rf /var/www/${config.name}"
-        //           ),
-        //           sshTransfer(
-        //             sourceFiles: "**/*",
-        //             remoteDirectory: "${config.name}",
-        //             execCommand: "cd /var/www/${config.name} && sudo npm i"
+    //   stage("Deliver for deploy")  {
+    //     steps {
+    //       echo("I am in build ${ENVIRONMENT}")
+    //     //   sshPublisher(
+    //     //     continueOnError: false, failOnError: true,
+    //     //     publishers: [
+    //     //       sshPublisherDesc(
+    //     //         configName: ENVIRONMENT,
+    //     //         verbose: true,
+    //     //         transfers: [
+    //     //           sshTransfer(
+    //     //             execCommand: " rm -rf /var/www/${config.name}"
+    //     //           ),
+    //     //           sshTransfer(
+    //     //             sourceFiles: "**/*",
+    //     //             remoteDirectory: "${config.name}",
+    //     //             execCommand: "cd /var/www/${config.name} && sudo npm i"
 
-        //           ),
-        //         ])
-        //     ])
-      }
+    //     //           ),
+    //     //         ])
+    //     //     ])
+    //   }
     }
   }
 
