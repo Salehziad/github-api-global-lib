@@ -1,8 +1,6 @@
 def call(Map config = [: ]) {
   pipeline {
-    agent {
-      label 'docker'
-    }
+  agent any
     environment {
       REPO_URL = 'www.my.repo'
     }
