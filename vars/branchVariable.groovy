@@ -1,35 +1,59 @@
 def call(Map config = [: ]) {
-pipeline {
+  pipeline {
     agent any
     environment {
-        BRANCH_NAME = "${GIT_BRANCH.replace('origin/','')}"
+      BRANCH_NAME = "${GIT_BRANCH.replace('origin/','')}"
     }
     stages {
-        stage('Set Environment Variables') {
-            steps {
-                script {
-                    if (env.BRANCH_NAME == 'develop') {
-                        env.ENVIRONMENT = 'dev server'
-                    } else if(env.BRANCH_NAME == 'docker') {
-                        env.ENVIRONMENT = 'test server'
-                    }
-                }
+      stage('Set Environment Variables') {
+        steps {
+          script {
+            if (env.BRANCH_NAME == 'develop') {
+              env.ENVIRONMENT = 'dev server'
+            } else if (env.BRANCH_NAME == 'docker') {
+              env.ENVIRONMENT = 'test server'
             }
+          }
         }
-        stage('Build') {
-            steps {
-                echo "Building branch ${BRANCH_NAME} for environment ${ENVIRONMENT}"
-                // Add build steps here
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo "Deploying branch ${BRANCH_NAME} to environment ${ENVIRONMENT}"
-                // Add deployment steps here
-            }
-        }
-    }
-}
+      }
+      stage("Deliver for ${ENVIRONMENT}") {
+        steps {
+          echo("I am in build")
+          sshPublisher(
+            continueOnError: false, failOnError: true,
+            publishers: [
+              sshPublisherDesc(
+                configName: "${ENVIRONMENT}",
+                verbose: true,
+                transfers: [
+                  sshTransfer(
+                    execCommand: " rm -rf /var/www/${config.name}"
+                  ),
+                  sshTransfer(
+                    sourceFiles: "**/*",
+                    remoteDirectory: "${config.name}",
+                    execCommand: "cd /var/www/${config.name} && sudo npm i"
 
+                  ),
+                ])
+            ])
+          echo("I am in Deploy")
+          sshPublisher(
+            continueOnError: false, failOnError: true,
+            publishers: [
+              sshPublisherDesc(
+                configName: "${ENVIRONMENT}",
+                verbose: true,
+                transfers: [
+                  sshTransfer(
+                    execCommand: "cd /var/www/${config.name} && pm2 start"
+                  )
+
+                ])
+            ])
+        }
+      }
+    }
+  }
 
 }
