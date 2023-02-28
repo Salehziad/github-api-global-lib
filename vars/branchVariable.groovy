@@ -2,11 +2,7 @@ def call(Map config = [: ]) {
   pipeline {
     agent any
     environment {
-        if (BRANCH_NAME == 'origin/production') {
-            ENVIRONMENT = 'prod'
-        } else {
-            ENVIRONMENT = 'dev'
-        }
+BRANCH_NAME = "${GIT_BRANCH.replace('origin/','')}"
     }
     stages {
         stage('Build') {
