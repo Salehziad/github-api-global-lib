@@ -84,9 +84,9 @@ def call(Map config = [: ]) {
                             execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache"
                         ),
                         //delete unused images when build images with same name
-                        // sshTransfer(
-                        //     execCommand: "docker rmi $(docker images -qa -f 'dangling=true')"
-                        // ),
+                        sshTransfer(
+                            execCommand: "docker rmi $(docker images -qa -f 'dangling=true')"
+                        ),
                         sshTransfer(
                             execCommand: "docker push saleh99/ciam"
                         ),
