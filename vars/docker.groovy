@@ -52,7 +52,6 @@ def call(Map config = [:]) {
             // }
             steps {
                 echo("I am in build")
-
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers: [
@@ -60,12 +59,6 @@ def call(Map config = [:]) {
                         configName: "dev server",
                         verbose: true,
                         transfers: [
-                                script {
-    TAG = sh (
-      returnStdout: true,
-      script: 'git fetch --tags && git tag --points-at HEAD | awk NF'
-    ).trim()
-                }
                         sshTransfer(
                             sourceFiles: "**/*",
                             remoteDirectory: "ciam",
@@ -73,6 +66,9 @@ def call(Map config = [:]) {
                         ),
                         sshTransfer(
                             execCommand:"cd /var/www/ciam && docker build . -t saleh99/ciam --no-cache"
+                        ),
+                        sshTransfer(
+                            execCommand: "docker push saleh99/ciam"
                         ),
                         // sshTransfer(
                         //     execCommand: "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin && docker push saleh99/ciam"
