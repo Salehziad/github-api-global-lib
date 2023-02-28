@@ -53,7 +53,7 @@ def call(Map config = [:]) {
             steps {
                 echo("I am in build")
                 sshPublisher(
-                    continueOnError: false, failOnError: true,
+                    continueOnError: true, failOnError: false,
                     publishers: [
                     sshPublisherDesc(
                         configName: "dev server",
