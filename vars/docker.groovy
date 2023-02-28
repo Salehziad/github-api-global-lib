@@ -65,6 +65,9 @@ def call(Map config = [: ]) {
             } else if (env.BRANCH_NAME == 'test') {
               env.ENVIRONMENT = 'test server'
             }
+            if docker image ls ciam; then
+   docker image rm ciam
+fi
           }
         }
       }
