@@ -52,12 +52,7 @@ def call(Map config = [:]) {
             // }
             steps {
                 echo("I am in build")
-                                script {
-    TAG = sh (
-      returnStdout: true,
-      script: 'git fetch --tags && git tag --points-at HEAD | awk NF'
-    ).trim()
-                }
+
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers: [
@@ -65,7 +60,12 @@ def call(Map config = [:]) {
                         configName: "dev server",
                         verbose: true,
                         transfers: [
-
+                                script {
+    TAG = sh (
+      returnStdout: true,
+      script: 'git fetch --tags && git tag --points-at HEAD | awk NF'
+    ).trim()
+                }
                         sshTransfer(
                             sourceFiles: "**/*",
                             remoteDirectory: "ciam",
