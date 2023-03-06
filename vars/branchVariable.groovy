@@ -13,6 +13,7 @@ def call(Map config = [: ]) {
               env.CHANNEL='#development-jenkins'
             } else if (env.BRANCH_NAME == 'test') {
               env.ENVIRONMENT = 'test server'
+              env.CHANNEL='#testing-jenkins'
             }
           }
         }
